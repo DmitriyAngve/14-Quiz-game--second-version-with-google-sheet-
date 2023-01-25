@@ -1,10 +1,5 @@
-const id = "1xbUaFbCn22PpcIEzol7pjfuwPxRDJeyxwnvO6L9j7Do";
-const sheetName = "quiz-2";
-const url =
-  "https://docs.google.com/spreadsheets/d/" +
-  id +
-  "/gviz/tq?tqx=out:json&sheet=" +
-  sheetName;
+const sheetData = false;
+
 const questions = []; // load all of the data into the questions array
 const output = document.querySelector(".output");
 const btn = document.querySelector(".btn");
@@ -34,16 +29,32 @@ btn.addEventListener("click", (e) => {
 
 window.addEventListener("DOMContentLoaded", () => {
   //   console.log("ready");
-
-  fetch(url)
-    .then((res) => res.text())
-    .then((data) => {
-      data = data.substring(47).slice(0, -2);
-      data = JSON.parse(data);
-      const gameData = sortmyData(data.table.rows);
-      console.log(gameData);
-      loadQuestions(gameData);
-    });
+  let data = {};
+  if (sheetData) {
+    const id = "1xbUaFbCn22PpcIEzol7pjfuwPxRDJeyxwnvO6L9j7Do";
+    const sheetName = "quiz-2";
+    const url =
+      "https://docs.google.com/spreadsheets/d/" +
+      id +
+      "/gviz/tq?tqx=out:json&sheet=" +
+      sheetName;
+    fetch(url)
+      .then((res) => res.text())
+      .then((data) => {
+        data = data.substring(47).slice(0, -2);
+        data = JSON.parse(data);
+        const gameData = sortmyData(data.table.rows);
+        console.log(gameData);
+        loadQuestions(gameData);
+      });
+  } else {
+    const url = "quiz.json";
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        loadQuestions(data);
+      });
+  }
 });
 
 function sortmyData(arr) {
