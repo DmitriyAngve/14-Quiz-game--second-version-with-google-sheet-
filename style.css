@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+.box {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.boxCursor {
+  cursor: pointer;
+}
+
+.boxCursor:hover {
+  background-color: azure;
+}
+
+.que {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.btn {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  border-top: 1px soled black;
+  padding: 10px;
+}
