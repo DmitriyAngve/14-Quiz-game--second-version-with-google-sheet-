@@ -1,5 +1,10 @@
+const id = "1xbUaFbCn22PpcIEzol7pjfuwPxRDJeyxwnvO6L9j7Do";
+const sheetName = "quiz-2";
 const url =
-  "https://docs.google.com/spreadsheets/d/1mJrWCx0rdl3mR0ww8pW92xf4sk4Nautx9JgUMgN_U7U/gviz/tq?tqx=out:json&sheet=Sheet";
+  "https://docs.google.com/spreadsheets/d/" +
+  id +
+  "/gviz/tq?tqx=out:json&sheet=" +
+  sheetName;
 const questions = []; // load all of the data into the questions array
 const output = document.querySelector(".output");
 const btn = document.querySelector(".btn");
@@ -37,7 +42,7 @@ window.addEventListener("DOMContentLoaded", () => {
       data = JSON.parse(data);
       const gameData = sortmyData(data.table.rows);
       console.log(gameData);
-      // loadQuestions();
+      loadQuestions(gameData);
     });
 });
 
@@ -153,37 +158,31 @@ function nextBtn() {
   }
 }
 
-function loadQuestions() {
-  fetch(url)
-    .then((rep) => rep.json())
-    .then((data) => {
-      //   console.log(data);
-      data.forEach((el) => {
-        let temp = []; // Holder of the object information for the correct and the incorrect answers.
+function loadQuestions(data) {
+  data.forEach((el) => {
+    let temp = []; // Holder of the object information for the correct and the incorrect answers.
 
-        // Loop through the incorrect answer array
-        el.incorrect.forEach((ans) => {
-          let tempObj = {
-            response: ans,
-            correct: false,
-          }; // obj for holding information and set it up as an object
-          temp.push(tempObj);
-        });
-
-        let tempObj = {
-          response: el.correct,
-          correct: true,
-        }; // obj for holding information and set it up as an object
-        temp.push(tempObj);
-        console.log(temp);
-        let mainTemp = {
-          question: el.question,
-          options: temp,
-          correct: el.correct,
-        };
-        questions.push(mainTemp); // Populate an array
-      });
-      console.log(questions);
-      //   document.write(JSON.stringify(questions));
+    // Loop through the incorrect answer array
+    el.incorrect.forEach((ans) => {
+      let tempObj = {
+        response: ans,
+        correct: false,
+      }; // obj for holding information and set it up as an object
+      temp.push(tempObj);
     });
+    let tempObj = {
+      response: el.correct,
+      correct: true,
+    }; // obj for holding information and set it up as an object
+    temp.push(tempObj);
+    console.log(temp);
+    let mainTemp = {
+      question: el.question,
+      options: temp,
+      correct: el.correct,
+    };
+    questions.push(mainTemp); // Populate an array
+  });
+  console.log(questions);
+  //   document.write(JSON.stringify(questions));
 }
