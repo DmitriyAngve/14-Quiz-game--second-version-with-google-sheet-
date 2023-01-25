@@ -1,4 +1,4 @@
-const sheetData = false;
+const sheetData = true;
 
 const questions = []; // load all of the data into the questions array
 const output = document.querySelector(".output");
@@ -9,22 +9,55 @@ const player = { score: 0, answers: [] };
 const totalOutput = document.querySelector("h1");
 let holder = []; // hold all of the newly constructed elements
 
+function downloadReport() {
+  let file;
+  let holder = `"Question", "Selection", "Correct", "Correct Answer"\n`;
+  let filename = "quiz.csv";
+  let prop = {
+    type: "text/csv;charset=utf-8;",
+  };
+  player.answers.forEach((el) => {
+    holder += `"${el.question}", "${el.response}", "${el.correct}", "${el.correctAnswer}"\n`;
+  });
+  // let's populate csv file
+  file = new File([holder], filename, prop);
+  let link = document.createElement("a");
+  let url1 = window.URL.createObjectURL(file);
+  console.log(url1);
+  link.setAttribute("href", url1);
+  link.setAttribute("download", filename);
+  link.style.visibility = "hidden";
+  document.body.append(link);
+  link.click();
+  document.body.remove(link);
+  console.log(holder);
+}
+
 btn.addEventListener("click", (e) => {
-  if (cur >= questions.length) {
-    let html = `<hr><h1>Score = ${player.score}</h1>`;
-    player.answers.forEach((el) => {
-      let bg = el.correct ? "green" : "red";
-      html += `<div style="background:${bg}">Question : ${capitalizeText(
-        el.question
-      )}? <br>`;
-      html += `Response : ${el.response} (${el.correctAnswer})<br>`;
-      html += `Result : ${el.correct} </div><br>`;
-    });
-    output.innerHTML = html;
+  if (btn.textContent == "Donwload Report") {
+    console.log("download");
+    downloadReport();
   } else {
-    newQuestion();
+    if (cur >= questions.length) {
+      let html = `<hr><h1>Score = ${player.score}</h1>`;
+      player.answers.forEach((el) => {
+        let bg = el.correct ? "green" : "red";
+        html += `<div style="background:${bg}">Question : ${capitalizeText(
+          el.question
+        )}? <br>`;
+        html += `Response : ${el.response} (${el.correctAnswer})<br>`;
+        html += `Result : ${el.correct} </div><br>`;
+      });
+      btn.textContent = "Donwload Report";
+      btn.style.backgroundColor = "green";
+      btn.style.color = "white";
+      btn.style.display = "block";
+      output.innerHTML = html;
+    } else {
+      btn.style.display = "none";
+      newQuestion();
+    }
   }
-  btn.style.display = "none";
 });
 
 window.addEventListener("DOMContentLoaded", () => {

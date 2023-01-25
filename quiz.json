@@ -5,13 +5,23 @@
     "incorrect": ["green", "red", "pink", "purple"]
   },
   {
+    "question": "what color is the sea",
+    "correct": "green",
+    "incorrect": ["blue", "red", "pink", "purple"]
+  },
+  {
     "question": "what color is the grass",
     "correct": "green",
     "incorrect": ["blue", "red", "pink", "purple"]
   },
   {
-    "question": "what color is the Sun",
-    "correct": "yellow",
-    "incorrect": ["blue", "green", "pink", "purple"]
+    "question": "what color is the grass",
+    "correct": "green",
+    "incorrect": ["blue", "red", "pink", "purple"]
+  },
+  {
+    "question": "what color is the grass",
+    "correct": "green",
+    "incorrect": ["blue", "red", "pink", "purple"]
   }
 ]
