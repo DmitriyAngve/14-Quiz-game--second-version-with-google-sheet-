@@ -7,7 +7,7 @@ Using JavaScript, I dynamically render questions and have access to load a new q
 
 In this application i receive good practice to reconstruct the JSON objects into JavaScript object
 
-Added scoring on the page and option to loads result in txt file 
+Added scoring on the page and option to loads result in CSV file.
 
 Unpretentious style included!
 
